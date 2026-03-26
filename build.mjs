@@ -32,6 +32,7 @@ for (const file of files) {
     platform: 'browser',
     format: 'iife',
     outfile: outPath,
+    charset: 'utf8',
   });
 
   // 3. Prepend header

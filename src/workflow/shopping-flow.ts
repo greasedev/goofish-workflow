@@ -358,10 +358,10 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
   }
 
   async function sendQrcode(session: ShoppingSession) {
-    await agent.sendImage({
-      chatId: session.chatId,
-      imageBase64: session.paymentQrBase64,
-    });
+    await agent.sendImage(
+      session.chatId,
+      session.paymentQrBase64,
+    );
   }
 
   async function waitForQuotedGoods(
@@ -544,7 +544,7 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
     title: string,
     content: string,
   ): Promise<void> {
-    await agent.sendText({ chatId, title, content });
+    await agent.sendText(chatId, title, content );
   }
 
   function transitionStage(

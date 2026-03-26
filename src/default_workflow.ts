@@ -23,7 +23,7 @@ async function execute(context: WorkflowContext) {
   const agent = new Agent(context.agentOptions || {});
   const apis = createWorkflowApis(agent);
 
-  const shoppingFlow = createShoppingFlow({ logger, agent,  apis});
+  const shoppingFlow = createShoppingFlow({ logger, agent,  goofish:apis});
 
   console.log('Task:', context.task);
   console.log('Executing workflow...');
@@ -31,7 +31,7 @@ async function execute(context: WorkflowContext) {
   // Test all APIs
   try {
      await shoppingFlow.handleIncoming({
-      chatId: context.chatId,
+      chatId: context.chatId ?? "",
       userText: context.task,
     });
   } catch (error) {
@@ -50,4 +50,4 @@ async function execute(context: WorkflowContext) {
 }
 
 // @ts-ignore
-globalThis.default_workflow = { execute };
+globalThis.execute = execute;
