@@ -1,0 +1,15 @@
+{
+  "name": "workflows",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "pack": "npm run build && rm -f workflows.zip && zip -r workflows.zip src dist"
+  },
+  "dependencies": {
+    "@greaseclaw/workflow-sdk": "github:greasedev/workflow-sdk#main"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  }
+}
