@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
-    "pack": "npm run build && rm -f workflows.zip && zip -r workflows.zip src dist"
+    "pack": "npm run build && rm -f workflows.zip && zip -r workflows.zip src dist package.json tsconfig.json"
   },
   "dependencies": {
     "@greaseclaw/workflow-sdk": "github:greasedev/workflow-sdk#main"
