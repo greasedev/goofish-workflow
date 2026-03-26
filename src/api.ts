@@ -6,16 +6,29 @@
 
 import { Agent } from '@greaseclaw/workflow-sdk';
 
+export interface ApiResponse {
+  success: boolean;
+  error?: string;
+  task?: {
+    id: string;
+    status: string;
+    extract_data?: string;
+    metrics_tokens: number;
+    metrics_time: number;
+  };
+}
+
+
 /**
  * WorkflowApis interface - methods generated from your API dependencies
  */
 export interface WorkflowApis {
-  login: (username: string, password: string) => Promise<unknown>;
-  check_login: () => Promise<unknown>;
-  get_message: (goods_url: string) => Promise<unknown>;
-  search: (querystring: string) => Promise<unknown>;
-  inquire: (goods_url: string, message: string) => Promise<unknown>;
-  payment: (goods_url: string) => Promise<unknown>;
+  login: (username: string, password: string) => Promise<ApiResponse>;
+  check_login: () => Promise<ApiResponse>;
+  get_message: (goods_url: string) => Promise<ApiResponse>;
+  search: (querystring: string) => Promise<ApiResponse>;
+  inquire: (goods_url: string, message: string) => Promise<ApiResponse>;
+  payment: (goods_url: string) => Promise<ApiResponse>;
 }
 
 /**
@@ -28,7 +41,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Login
      * @endpoint /v1/custom/login
      */
-    async login(username: string, password: string): Promise<unknown> {
+    async login(username: string, password: string): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/login', {
         method: 'POST',
         body: { username, password },
@@ -41,7 +54,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Check Login
      * @endpoint /v1/custom/check_login
      */
-    async check_login(): Promise<unknown> {
+    async check_login(): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/check_login', {
         method: 'POST',
       });
@@ -53,7 +66,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Get Message
      * @endpoint /v1/custom/get_message
      */
-    async get_message(goods_url: string): Promise<unknown> {
+    async get_message(goods_url: string): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/get_message', {
         method: 'POST',
         body: { goods_url },
@@ -66,7 +79,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Search
      * @endpoint /v1/custom/search
      */
-    async search(querystring: string): Promise<unknown> {
+    async search(querystring: string): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/search', {
         method: 'POST',
         body: { querystring },
@@ -79,7 +92,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Inquire
      * @endpoint /v1/custom/inquire
      */
-    async inquire(goods_url: string, message: string): Promise<unknown> {
+    async inquire(goods_url: string, message: string): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/inquire', {
         method: 'POST',
         body: { goods_url, message },
@@ -92,7 +105,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * Payment
      * @endpoint /v1/custom/payment
      */
-    async payment(goods_url: string): Promise<unknown> {
+    async payment(goods_url: string): Promise<ApiResponse> {
       const { data } = await agent.call('/v1/custom/payment', {
         method: 'POST',
         body: { goods_url },
