@@ -1,12 +1,36 @@
 /**
  * ---
- * name: Default Workflow
- * description: "Default workflow entry point"
+ * name: 闲鱼比价代购下单
+ * description: "闲鱼商品比价、代购、下单工作流"
  *
  * use when:
- * - User requests an action
+ * - 用户需要在闲鱼上比价购买商品
+ * - 用户需要代购闲鱼商品
  *
- * output: Workflow execution result
+ * input:
+ *   - name: 城市
+ *     description: 目标城市
+ *     required: true
+ *   - name: 区域
+ *     description: 目标区域（商圈、商场等）
+ *     required: true
+ *   - name: 店铺名
+ *     description: 目标店铺名称
+ *     required: true
+ *   - name: 商品名
+ *     description: 要购买的商品名称
+ *     required: true
+ *   - name: 规格
+ *     description: 商品规格
+ *     required: false
+ *   - name: 数量
+ *     description: 购买数量
+ *     required: true
+ *
+ * output:
+ *   - success: 是否成功
+ *   - message: 结果消息
+ *   - orderInfo: 订单信息（成功时返回）
  * ---
  */
 
