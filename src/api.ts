@@ -42,7 +42,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/login
      */
     async login(username: string, password: string): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/login', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/login', {
         method: 'POST',
         body: { username, password },
       });
@@ -55,7 +55,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/check_login
      */
     async check_login(): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/check_login', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/check_login', {
         method: 'POST',
       });
       return data;
@@ -67,7 +67,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/get_message
      */
     async get_message(goods_url: string): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/get_message', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/get_message', {
         method: 'POST',
         body: { goods_url },
       });
@@ -80,7 +80,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/search
      */
     async search(querystring: string): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/search', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/search', {
         method: 'POST',
         body: { querystring },
       });
@@ -93,7 +93,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/inquire
      */
     async inquire(goods_url: string, message: string): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/inquire', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/inquire', {
         method: 'POST',
         body: { goods_url, message },
       });
@@ -106,7 +106,7 @@ export function createWorkflowApis(agent: Agent): WorkflowApis {
      * @endpoint /v1/custom/payment
      */
     async payment(goods_url: string): Promise<ApiResponse> {
-      const { data } = await agent.call('/v1/custom/payment', {
+      const { data } = await agent.call<ApiResponse>('/v1/custom/payment', {
         method: 'POST',
         body: { goods_url },
       });
