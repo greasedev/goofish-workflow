@@ -8,29 +8,29 @@
  * - 用户需要代购闲鱼商品
  *
  * input:
- *   - name: 城市
+ *   - name: city
  *     description: 目标城市
  *     required: true
- *   - name: 区域
+ *   - name: area
  *     description: 目标区域（商圈、商场等）
  *     required: true
- *   - name: 店铺名
+ *   - name: shop
  *     description: 目标店铺名称
  *     required: true
- *   - name: 商品名
+ *   - name: product
  *     description: 要购买的商品名称
  *     required: true
- *   - name: 规格
+ *   - name: specification
  *     description: 商品规格
  *     required: false
- *   - name: 数量
+ *   - name: quantity
  *     description: 购买数量
  *     required: true
  *
  * output:
  *   - success: 是否成功
  *   - message: 结果消息
- *   - orderInfo: 订单信息（成功时返回）
+ *   - data: 订单信息（成功时返回）
  * ---
  */
 

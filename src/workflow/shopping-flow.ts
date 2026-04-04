@@ -459,6 +459,7 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
 
   function getInquireMessage(session: ShoppingSession): string {
     return [
+      "最低多少钱?",
       session.intent.location,
       session.intent.shop,
       session.intent.product,
