@@ -50,6 +50,7 @@ async function execute(context: WorkflowContext) {
   const shoppingFlow = createShoppingFlow({ logger, agent,  goofish:apis});
 
   console.log('Task:', context.task);
+  console.log('Params:', context.params);
   console.log('Executing workflow...');
 
   // Test all APIs
