@@ -4,6 +4,7 @@ import {
   getMissingIntentField,
   mergeIntent,
   parseIntentDecision,
+  parseParamDecision,
   parsePriceDecision,
 } from "./claude-parser";
 import { runPoller } from "./poller";
@@ -37,6 +38,7 @@ export type ShoppingFlow = {
   handleIncoming: (params: {
     chatId: string;
     userText: string;
+    params?: Record<string, unknown>
   }) => Promise<void>;
   interrupt: (chatId: string) => void;
 };
@@ -60,7 +62,7 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
   const pollControllers = new Map<string, AbortController>();
 
   return {
-    handleIncoming: async ({ chatId, userText }) => {
+    handleIncoming: async ({ chatId, userText, params }) => {
       if (processingChats.has(chatId)) {
         pollControllers.get(chatId)?.abort();
         return await sendReply(
@@ -81,7 +83,7 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
         } else if (session.stage === "waiting_payment_adjust") {
           await waitForPaymentAdjust(session);
         } else {
-          await executeShoppingPipeline(session, input, chatId);
+          await executeShoppingPipeline(session, input, chatId, params);
         }
         sessionStore.save(session);
         return;
@@ -98,6 +100,7 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
     session: ShoppingSession,
     input: string,
     chatId: string,
+    params?: Record<string, unknown>
   ): Promise<void> {
     transitionStage(session, "auth_checking", logger);
     await sendReply(session.chatId, "登录检查", "正在检查闲鱼登录状态");
@@ -124,13 +127,21 @@ export function createShoppingFlow(params: ShoppingFlowDeps): ShoppingFlow {
     await sendReply(session.chatId, "登录检查", "登录状态检查成功，已登录");
     
     transitionStage(session, "intent_collecting", logger);
-    const intentRaw = await agent.complete(
-      buildIntentPrompt(input, session.intent),
-    );
-    session.intent = mergeIntent(
-      session.intent,
-      parseIntentDecision(intentRaw.text),
-    );
+    if (params) {
+          session.intent = mergeIntent(
+            session.intent,
+            parseParamDecision(params!),
+          );
+    } else {
+      const intentRaw = await agent.complete(
+        buildIntentPrompt(input, session.intent),
+      );
+      session.intent = mergeIntent(
+        session.intent,
+        parseIntentDecision(intentRaw.text),
+      );
+    }
+
     const missing = getMissingIntentField(session.intent);
     if (missing) {
       return await sendReply(

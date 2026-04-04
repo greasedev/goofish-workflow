@@ -78,3 +78,17 @@ export function parsePriceDecision(input: string): number {
   if (!Number.isFinite(value)) return 0;
   return value > 0 ? value : 0;
 }
+
+export function parseParamDecision(params: Record<string, unknown>): ClaudeIntentDecision {
+  const location = [
+    toStringValue(params.city),
+    toStringValue(params.area),
+  ].filter(Boolean).join(" ");
+
+  return {
+    location,
+    shop: toStringValue(params.shop),
+    product: toStringValue(params.product),
+    spec: toStringValue(params.specification),
+  };
+}

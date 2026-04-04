@@ -58,6 +58,7 @@ async function execute(context: WorkflowContext) {
      await shoppingFlow.handleIncoming({
       chatId: context.chatId ?? "",
       userText: context.task,
+      params: context.params
     });
   } catch (error) {
     console.error('Workflow  error:', error);
