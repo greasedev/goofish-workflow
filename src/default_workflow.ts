@@ -30,7 +30,7 @@
  * output:
  *   - success: 是否成功
  *   - message: 结果消息
- *   - data: 订单信息（成功时返回）
+ *   - data: 订单信息（成功时返回） 
  * ---
  */
 
@@ -52,7 +52,8 @@ async function execute(context: WorkflowContext) {
   console.log('Task:', context.task);
   console.log('Params:', context.params);
   console.log('Executing workflow...');
-
+  const result = await agent.complete('Workflow started');
+  console.log('LLM Response:', result.text);
   // Test all APIs
   try {
      await shoppingFlow.handleIncoming({

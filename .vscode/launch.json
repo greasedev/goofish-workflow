@@ -1,0 +1,24 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Workflow (Custom Context)",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "/Users/baoge/.nvm/versions/node/v22.16.0/bin/node",
+      "runtimeArgs": [
+        "--inspect-brk",
+        "${workspaceFolder}/node_modules/.pnpm/tsx@4.21.0/node_modules/tsx/dist/cli.mjs",
+        "${workspaceFolder}/node_modules/@greaseclaw/workflow-sdk/bin/workflow-dev.mjs",
+        "src/default_workflow.ts",
+        "{\"task\":\"帮我找iPhone\",\"params\":{\"city\":\"北京\"}}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}
